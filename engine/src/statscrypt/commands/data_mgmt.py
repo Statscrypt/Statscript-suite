@@ -1,0 +1,68 @@
+from statscrypt.core.session import StatSession
+from typing import List
+import statscrypt.core.exceptions as exceptions
+
+def run_use(session: StatSession, variables: List[str]):
+    """Implementation of the 'use' command to load a dataset."""
+    if not variables:
+        raise exceptions.FileError("Please specify a file path.", code=601)
+    
+    filepath = variables[0].strip('"')
+    
+    try:
+        session.load_data(filepath)
+        return f"Loaded data from {filepath}"
+    except FileNotFoundError:
+        raise exceptions.FileError(f"File not found at {filepath}", code=601)
+    except Exception as e:
+        raise exceptions.FileError(f"An error occurred: {e}", code=601)
+
+def run_gen(session: StatSession, gen_expression: dict):
+    """
+    Implementation of the 'gen' command.
+    Creates a new variable (column) in the DataFrame based on an existing one.
+    """
+    if session.df is None:
+        raise exceptions.DataError("No data loaded.")
+
+    new_var = gen_expression["new_var"]
+    old_var = gen_expression["old_var"]
+    operator = gen_expression["operator"]
+
+    if new_var in session.df.columns:
+        raise exceptions.VariableError(f"Variable '{new_var}' already exists.")
+
+    if old_var not in session.df.columns:
+        raise exceptions.VariableError(f"Variable '{old_var}' not found in the dataset.")
+    
+    if operator == '=':
+        session.df[new_var] = session.df[old_var]
+        session.variables = session.df.columns.tolist()
+        return f"Variable '{new_var}' generated as a copy of '{old_var}'."
+    else:
+        raise exceptions.SyntaxError(f"Unsupported operator '{operator}' for 'gen' command.")
+
+def run_list(session: StatSession, variables: List[str], condition: str = None):
+    """
+    Implementation of the 'list' command.
+    Lists the first 20 rows of the data, optionally filtered.
+    """
+    if session.df is None:
+        raise exceptions.DataError("No data loaded.")
+
+    target_df = session.df
+    if condition:
+        try:
+            condition_statement = condition.replace('=', '==')
+            target_df = session.df.query(condition_statement)
+        except Exception as e:
+            raise exceptions.SyntaxError(f"Error in 'if' condition: {e}")
+
+    if not variables:
+        return target_df.head(20).to_string()
+    
+    valid_vars = [v for v in variables if v in target_df.columns]
+    if not valid_vars:
+        raise exceptions.VariableError(f"Variables {variables} not found.")
+        
+    return target_df[valid_vars].head(20).to_string()
