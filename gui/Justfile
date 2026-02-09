@@ -1,0 +1,114 @@
+# Statscrypt Suite - Justfile (Cross-platform task runner)
+# Install 'just' from: https://github.com/casey/just
+# Then run: just [command]
+
+set shell := ["bash", "-cu"]
+
+# Default recipe - show available commands
+default:
+    @just --list
+
+# Install dependencies
+install:
+    #!/usr/bin/env bash
+    echo "Installing npm dependencies..."
+    npm install
+    echo "✓ Dependencies installed"
+
+# Build Python engine
+build-engine:
+    #!/usr/bin/env bash
+    echo "Building Python engine..."
+    cd ../engine
+    pip install -e .[dev]
+    pyinstaller statscrypt.spec --distpath ../gui/resources/engine
+    cd ../gui
+    echo "✓ Python engine built"
+
+# Start development mode
+start:
+    #!/usr/bin/env bash
+    if [ ! -d "node_modules" ]; then
+        echo "Dependencies not found. Installing..."
+        npm install
+    fi
+    echo "Starting Statscrypt Suite..."
+    npm start
+
+# Build for distribution
+build:
+    #!/usr/bin/env bash
+    echo "Building Python engine..."
+    just build-engine
+    echo "Building application package..."
+    npm run pack
+    echo "✓ Build complete"
+
+# Package for distribution
+dist:
+    #!/usr/bin/env bash
+    echo "Creating distribution package..."
+    just build-engine
+    npm run dist
+    echo "✓ Distribution package created"
+
+# Clean build artifacts
+clean:
+    #!/usr/bin/env bash
+    echo "Cleaning build artifacts..."
+    rm -rf node_modules
+    rm -rf dist
+    rm -rf build
+    rm -rf ../engine/build
+    rm -rf ../engine/dist
+    echo "✓ Cleaned"
+
+# Update dependencies
+update:
+    #!/usr/bin/env bash
+    echo "Updating npm dependencies..."
+    npm update
+    echo "✓ Updated"
+
+# Run tests (when tests are added)
+test:
+    #!/usr/bin/env bash
+    echo "Running tests..."
+    npm test
+
+# Open in development mode with DevTools
+dev:
+    #!/usr/bin/env bash
+    if [ ! -d "node_modules" ]; then
+        npm install
+    fi
+    echo "Starting in development mode with DevTools..."
+    npm start
+
+# Show version
+version:
+    #!/usr/bin/env bash
+    echo "Statscrypt Suite v0.1.0"
+    echo "Node $(node --version)"
+    echo "npm $(npm --version)"
+
+# Help - show all commands with descriptions
+help:
+    #!/usr/bin/env bash
+    echo "Statscrypt Suite - Available Commands"
+    echo ""
+    echo "  just install      - Install npm dependencies"
+    echo "  just build-engine - Build Python engine"
+    echo "  just start        - Start the application (DEFAULT)"
+    echo "  just dev          - Start in development mode"
+    echo "  just build        - Build for distribution"
+    echo "  just dist         - Create distribution package"
+    echo "  just clean        - Clean build artifacts"
+    echo "  just update       - Update dependencies"
+    echo "  just version      - Show version info"
+    echo "  just help         - Show this help message"
+    echo ""
+    echo "Quick start:"
+    echo "  just start"
+    echo ""
+    echo "Or just run: just"
