@@ -1,0 +1,58 @@
+# Pre-commit hooks configuration
+# Install: pip install pre-commit
+# Setup: pre-commit install
+# Run manually: pre-commit run --all-files
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace
+        name: Trim trailing whitespace
+        args: [--markdown-args=--ignore-all-blanks]
+      - id: end-of-file-fixer
+        name: Fix end of file
+      - id: check-yaml
+        name: Check YAML
+      - id: check-json
+        name: Check JSON
+      - id: check-toml
+        name: Check TOML
+      - id: check-merge-conflict
+        name: Check for merge conflicts
+      - id: fix-byte-order-marker
+        name: Fix UTF-8 byte order marker
+      - id: mixed-line-ending
+        name: Fix mixed line endings
+        args: [--fix=lf]
+
+  - repo: https://github.com/psf/black
+    rev: 23.12.1
+    hooks:
+      - id: black
+        name: Format Python code with Black
+        language_version: python3.10
+        args: [--line-length=88]
+
+  - repo: https://github.com/PyCQA/isort
+    rev: 5.13.2
+    hooks:
+      - id: isort
+        name: Sort Python imports
+        args: [--profile=black]
+
+
+  - repo: https://github.com/pre-commit/mirrors-eslint
+    rev: v8.56.0
+    hooks:
+      - id: eslint
+        name: Lint JavaScript with ESLint
+        types: [javascript]
+        args: [--fix]
+        additional_dependencies: ['eslint']
+
+default_language_version:
+  python: python3.10
+  node: 16.0.0
+
+exclude: ^(gui/node_modules/|engine/build/|engine/dist/|\.git/|\.venv/|venv/)
