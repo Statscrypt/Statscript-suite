@@ -130,3 +130,7 @@ package-lock.json
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+COMMIT_STRATEGY.md
+
+gui/resources/
