@@ -1,0 +1,42 @@
+{
+  "name": "statscrypt-gui",
+  "version": "0.1.0",
+  "description": "A GUI for the Statscrypt engine.",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "postinstall": "npm run build-python-engine",
+    "build-python-engine": "cd ../engine && pip install -e .[dev] && pyinstaller statscrypt.spec --distpath ../gui/resources/engine && cd ../gui",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "build": "npm run build-python-engine && npm run pack"
+  },
+  "build": {
+    "appId": "com.logads.statscrypt",
+    "productName": "Statscrypt Suite",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "src/**/*",
+      "node_modules/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "resources/engine/statscrypt_engine",
+        "to": "engine/statscrypt_engine",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ]
+  },
+  "keywords": ["stata", "statistics", "analysis", "data-science"],
+  "author": "Statscrypt Contributors",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^28.0.0",
+    "electron-builder": "^24.0.0"
+  }
+}
