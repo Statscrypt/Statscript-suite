@@ -40,7 +40,7 @@ npm start
  **Easy Installation:** Run `start.cmd` or `start` script (auto-installs just)  
  **Help Menu:** Built-in command reference  
 
-## 🎯 Basic Usage
+##  Basic Usage
 
 After launching:
 
@@ -82,14 +82,9 @@ just dev             # Start in development mode
 just install         # Install npm dependencies
 just build-engine    # Build Python backend
 just build           # Build for distribution
-just dist            # Create distribution package
-just clean           # Clean build artifacts
-just update          # Update all dependencies
-just version         # Show version information
-just help            # Show all available commands
+
 ```
 
-See [JUSTFILE_GUIDE.md](JUSTFILE_GUIDE.md) for detailed information.
 
 ## Project Structure
 
@@ -105,11 +100,11 @@ statscrypt-suite/
 │   └── pyproject.toml
 ├── gui/                 # Electron frontend
 │   ├── src/
-│   │   ├── main.js      # ← FIXED: JSON communication
-│   │   ├── renderer.js  # ← FIXED: History display
-│   │   └── index.html   # ← FIXED: Better UI
-│   ├── start.bat        # ← NEW: Windows launcher
-│   └── start.sh         # ← NEW: Unix launcher
+│   │   ├── main.js      
+│   │   ├── renderer.js  
+│   │   └── index.html   
+│   ├── start.bat       
+│   └── start.sh         
 ├── shared/
 │   └── sample.csv       # Sample data for testing
 └── docs/
