@@ -1,6 +1,7 @@
 from typing import List
 
 import statscrypt.core.exceptions as exceptions
+from statscrypt.core.expression import ExpressionEvaluator
 from statscrypt.core.session import StatSession
 
 
@@ -19,34 +20,38 @@ def run_use(session: StatSession, variables: List[str]):
         raise exceptions.FileError(f"An error occurred: {e}")
 
 
-def run_gen(session: StatSession, gen_expression: dict):
+def run_gen(session: StatSession, gen_expression: dict, condition: str = None):
     """
     Implementation of the 'gen' command.
-    Creates a new variable (column) in the DataFrame based on an existing one.
+    Creates a new variable (column) in the DataFrame based on an expression.
     """
     if session.df is None:
         raise exceptions.DataError("No data loaded.")
 
     new_var = gen_expression["new_var"]
-    old_var = gen_expression["old_var"]
-    operator = gen_expression["operator"]
+    expression = gen_expression["expression"]
 
     if new_var in session.df.columns:
         raise exceptions.VariableError(f"Variable '{new_var}' already exists.")
 
-    if old_var not in session.df.columns:
-        raise exceptions.VariableError(
-            f"Variable '{old_var}' not found in the dataset."
-        )
+    # Evaluate expression
+    evaluator = ExpressionEvaluator(session.df)
+    try:
+        result = evaluator.evaluate(expression)
 
-    if operator == "=":
-        session.df[new_var] = session.df[old_var]
+        # Apply condition if specified
+        if condition:
+            condition_statement = condition.replace("=", "==")
+            mask = session.df.eval(condition_statement)
+            session.df[new_var] = None
+            session.df.loc[mask, new_var] = result[mask]
+        else:
+            session.df[new_var] = result
+
         session.variables = session.df.columns.tolist()
-        return f"Variable '{new_var}' generated as a copy of '{old_var}'."
-    else:
-        raise exceptions.SyntaxError(
-            f"Unsupported operator '{operator}' for 'gen' command."
-        )
+        return f"Variable '{new_var}' generated."
+    except Exception as e:
+        raise exceptions.SyntaxError(f"Error generating variable: {str(e)}")
 
 
 def run_list(session: StatSession, variables: List[str], condition: str = None):
