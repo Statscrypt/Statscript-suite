@@ -1,4 +1,51 @@
-age,gender,income
-25,male,50000
-30,female,60000
-22,male,45000
+id,name,age,gender,education,experience,wage,hours_worked,region,department,performance_score,training_hours,promotion,year
+1,Alice Johnson,28,Female,16,5,52000,40,North,Sales,85,20,1,2023
+2,Bob Smith,35,Male,18,12,68000,45,South,Engineering,92,15,1,2023
+3,Carol White,42,Female,20,18,85000,40,East,Management,88,10,0,2023
+4,David Brown,31,Male,16,8,58000,42,West,Sales,78,25,0,2023
+5,Eve Davis,29,Female,18,6,55000,38,North,Marketing,90,18,1,2023
+6,Frank Miller,45,Male,14,22,72000,40,South,Operations,75,12,0,2023
+7,Grace Lee,26,Female,16,3,48000,40,East,Sales,82,22,0,2023
+8,Henry Wilson,38,Male,20,15,95000,50,West,Engineering,95,8,1,2023
+9,Iris Martinez,33,Female,18,10,62000,40,North,Marketing,87,16,1,2023
+10,Jack Taylor,41,Male,16,19,70000,42,South,Operations,80,14,0,2023
+11,Karen Anderson,27,Female,18,4,51000,40,East,Engineering,89,20,1,2023
+12,Leo Thomas,36,Male,20,13,78000,45,West,Management,91,11,1,2023
+13,Mia Jackson,30,Female,16,7,56000,40,North,Sales,83,19,0,2023
+14,Noah Harris,44,Male,14,20,68000,40,South,Operations,76,13,0,2023
+15,Olivia Martin,32,Female,18,9,60000,42,East,Marketing,86,17,1,2023
+16,Paul Thompson,39,Male,20,16,88000,48,West,Engineering,93,9,1,2023
+17,Quinn Garcia,25,Female,16,2,46000,38,North,Sales,81,23,0,2023
+18,Ryan Rodriguez,37,Male,18,14,72000,44,South,Management,88,12,0,2023
+19,Sara Lewis,34,Female,20,11,75000,40,East,Engineering,90,15,1,2023
+20,Tom Walker,43,Male,16,21,74000,42,West,Operations,77,11,0,2023
+21,Uma Hall,29,Female,18,6,54000,40,North,Marketing,85,18,1,2022
+22,Victor Allen,40,Male,20,17,82000,46,South,Engineering,92,10,1,2022
+23,Wendy Young,31,Female,16,8,57000,40,East,Sales,84,20,0,2022
+24,Xavier King,35,Male,18,12,66000,42,West,Marketing,86,16,1,2022
+25,Yara Wright,28,Female,20,5,53000,40,North,Engineering,88,19,1,2022
+26,Zack Scott,46,Male,14,23,71000,40,South,Operations,74,12,0,2022
+27,Amy Green,27,Female,16,4,49000,38,East,Sales,80,21,0,2022
+28,Ben Adams,38,Male,20,15,90000,48,West,Management,94,9,1,2022
+29,Chloe Baker,33,Female,18,10,61000,40,North,Marketing,87,17,1,2022
+30,Dan Nelson,42,Male,16,19,69000,42,South,Operations,79,13,0,2022
+31,Emma Carter,26,Female,18,3,50000,40,East,Engineering,89,22,1,2021
+32,Felix Mitchell,36,Male,20,13,76000,44,West,Management,90,11,1,2021
+33,Gina Perez,30,Female,16,7,55000,40,North,Sales,82,19,0,2021
+34,Hugo Roberts,45,Male,14,21,67000,40,South,Operations,75,14,0,2021
+35,Ivy Turner,32,Female,18,9,59000,42,East,Marketing,85,18,1,2021
+36,Jake Phillips,39,Male,20,16,86000,46,West,Engineering,92,10,1,2021
+37,Kate Campbell,25,Female,16,2,45000,38,North,Sales,80,24,0,2021
+38,Liam Parker,37,Male,18,14,70000,44,South,Management,87,13,0,2021
+39,Maya Evans,34,Female,20,11,73000,40,East,Engineering,89,16,1,2021
+40,Nate Edwards,44,Male,16,20,72000,42,West,Operations,76,12,0,2021
+41,Opal Collins,29,Female,18,6,53000,40,North,Marketing,84,19,1,2020
+42,Pete Stewart,41,Male,20,18,80000,46,South,Engineering,91,11,1,2020
+43,Rosa Sanchez,31,Female,16,8,56000,40,East,Sales,83,21,0,2020
+44,Sam Morris,36,Male,18,13,65000,42,West,Marketing,85,17,1,2020
+45,Tina Rogers,28,Female,20,5,52000,40,North,Engineering,87,20,1,2020
+46,Umar Reed,47,Male,14,24,70000,40,South,Operations,73,13,0,2020
+47,Vera Cook,27,Female,16,4,48000,38,East,Sales,79,22,0,2020
+48,Wade Morgan,39,Male,20,16,88000,48,West,Management,93,10,1,2020
+49,Xena Bell,33,Female,18,10,60000,40,North,Marketing,86,18,1,2020
+50,Yale Murphy,43,Male,16,20,68000,42,South,Operations,78,14,0,2020
