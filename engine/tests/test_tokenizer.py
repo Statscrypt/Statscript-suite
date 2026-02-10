@@ -45,7 +45,7 @@ def test_tokenize_with_if_clause():
         Token("VAR", "age"),
         Token("IF", "if"),
         Token("VAR", "gender"),
-        Token("OP", "=="),
+        Token("COMP_OP", "=="),
         Token("NUMBER", "1"),
     ]
     assert tokens == expected_tokens
