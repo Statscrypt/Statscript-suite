@@ -3,7 +3,12 @@ import sys
 
 import statscrypt.core.exceptions as exceptions
 from statscrypt.commands.data_mgmt import run_gen, run_list, run_use
-from statscrypt.commands.stats import run_correlate, run_regress, run_summarize
+from statscrypt.commands.stats import (
+    run_correlate,
+    run_regress,
+    run_summarize,
+    run_tabulate,
+)
 from statscrypt.commands.viz import run_graph
 from statscrypt.core.parser import StatParser
 from statscrypt.core.session import StatSession
@@ -18,6 +23,8 @@ COMMAND_MAP = {
     "regress": run_regress,
     "correlate": run_correlate,
     "corr": run_correlate,
+    "tabulate": run_tabulate,
+    "tab": run_tabulate,
 }
 
 

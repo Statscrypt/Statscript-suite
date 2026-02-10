@@ -128,3 +128,65 @@ def run_correlate(session: StatSession, variables: List[str], condition: str = N
         )
 
     return target_df[valid_vars].corr().to_string()
+
+
+def run_tabulate(session: StatSession, variables: List[str], condition: str = None):
+    """
+    Implementation of the 'tabulate' command.
+    Creates frequency tables for categorical variables.
+    Syntax: tabulate var1 [var2]
+    """
+    if session.df is None:
+        raise exceptions.DataError("No data loaded.")
+
+    if not variables:
+        raise exceptions.SyntaxError("tabulate requires at least one variable")
+
+    target_df = session.df
+    if condition:
+        try:
+            target_df = session.df.query(condition)
+        except Exception as e:
+            raise exceptions.SyntaxError(f"Error in 'if' condition: {e}")
+
+    var1 = variables[0]
+    if var1 not in target_df.columns:
+        raise exceptions.VariableError(f"Variable '{var1}' not found")
+
+    if len(variables) == 1:
+        # One-way frequency table
+        counts = target_df[var1].value_counts().sort_index()
+        total = len(target_df)
+        percent = (counts / total * 100).round(2)
+
+        result_df = pd.DataFrame(
+            {"Freq.": counts, "Percent": percent, "Cum.": percent.cumsum()}
+        )
+
+        output = f"\n{var1}\n"
+        output += "=" * 50 + "\n"
+        output += result_df.to_string()
+        output += f"\n{'-' * 50}\n"
+        output += f"Total: {total}\n"
+        return output
+
+    elif len(variables) == 2:
+        # Two-way cross-tabulation
+        var2 = variables[1]
+        if var2 not in target_df.columns:
+            raise exceptions.VariableError(f"Variable '{var2}' not found")
+
+        crosstab = pd.crosstab(
+            target_df[var1], target_df[var2], margins=True, margins_name="Total"
+        )
+
+        output = f"\n{var1} x {var2}\n"
+        output += "=" * 50 + "\n"
+        output += crosstab.to_string()
+        output += "\n"
+        return output
+
+    else:
+        raise exceptions.SyntaxError(
+            "tabulate supports at most 2 variables (one-way or two-way tables)"
+        )
