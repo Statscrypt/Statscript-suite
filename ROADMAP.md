@@ -1,6 +1,6 @@
 # Statscrypt Roadmap
 
-## v1.1.0 (Minor Release - Q2 2024)
+## v1.1.0 (Minor Release - Q2 2026)
 
 ### Data Management Enhancements
 - [ ] `rename` - Rename variables
@@ -21,7 +21,7 @@
 - [ ] Value labels for categorical variables
 - [ ] Command history persistence across sessions
 
-## v1.2.0 (Minor Release - Q3 2024)
+## v1.2.0 (Minor Release - Q3 2026)
 
 ### Advanced Statistics
 - [ ] `logit` - Logistic regression
@@ -41,7 +41,7 @@
 - [ ] Customizable plot titles and labels
 - [ ] Export plots to PNG/PDF
 
-## v1.3.0 (Minor Release - Q4 2024)
+## v1.3.0 (Minor Release - Q4 2026)
 
 ### Scripting & Automation
 - [ ] `do` - Execute do-files (script files)
@@ -57,7 +57,7 @@
 - [ ] `collapse` - Aggregate data
 - [ ] `egen` - Extended generate functions
 
-## v2.0.0 (Major Release - 2025)
+## v2.0.0 (Major Release - 2026)
 
 ### Time Series Analysis
 - [ ] `tsset` - Declare time series data
@@ -134,11 +134,11 @@ Priority is given to features that:
 
 ## Release Schedule
 
-- **Minor releases** (v1.x): Every 3 months
-- **Major releases** (v2.x): Annually
+- **Minor releases** (v1.x): Every months
+- **Major releases** (v2.x): 3 months
 - **Patch releases** (v1.x.y): As needed for bug fixes
 
 ## Feedback
 
 Submit feature requests and bug reports at:
-https://github.com/Faadabu/statscrypt-suite/issues
+https://github.com/Statscrypt/Statscript-suite/issues

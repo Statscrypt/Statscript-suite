@@ -34,15 +34,12 @@ def run_gen(session: StatSession, gen_expression: dict, condition: str = None):
     if new_var in session.df.columns:
         raise exceptions.VariableError(f"Variable '{new_var}' already exists.")
 
-    # Evaluate expression
     evaluator = ExpressionEvaluator(session.df)
     try:
         result = evaluator.evaluate(expression)
 
-        # Apply condition if specified
         if condition:
-            condition_statement = condition.replace("=", "==")
-            mask = session.df.eval(condition_statement)
+            mask = session.df.eval(condition)
             session.df[new_var] = None
             session.df.loc[mask, new_var] = result[mask]
         else:
@@ -64,13 +61,10 @@ def run_list(session: StatSession, variables: List[str], condition: str = None):
 
     target_df = session.df
     if condition:
-        condition_statement = condition.replace("=", "==")
         try:
-            target_df = session.df.query(condition_statement)
+            target_df = session.df.query(condition)
         except Exception as e:
-            raise exceptions.SyntaxError(
-                f"Error in 'if' condition: {condition_statement} - {e}"
-            )
+            raise exceptions.SyntaxError(f"Error in 'if' condition: {e}")
 
     if not variables:
         return target_df.head(20).to_string(index=False)

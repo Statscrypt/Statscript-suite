@@ -12,10 +12,10 @@
 
 Statscrypt is an **educational statistics platform** designed to bridge the gap between aspiring data analysts and professional statistical software. Built with Python and Electron, it offers a Stata-like command interface with modern UI/UX, making it ideal for:
 
-- 📚 **Students** learning statistical methods and data analysis
-- 🎓 **Teaching** fundamental statistics concepts
-- 📊 **Practice** before using commercial software
-- 🔬 **Research prototyping** with open-source tools
+- **Students** learning statistical methods and data analysis
+- **Teaching** fundamental statistics concepts
+- **Practice** before using commercial software
+- **Research prototyping** with open-source tools
 
 ## Quick Start
 
@@ -38,14 +38,14 @@ just start
 ## Features
 
 **Core Functionality**
-- 📁 Load and analyze CSV files
-- 📊 Descriptive statistics (`summarize`)
-- 📋 Data exploration (`list`)
-- 🔢 Variable creation and transformation (`gen`)
-- 📈 Visualizations: histograms & scatter plots (`graph`)
-- 🔍 Conditional analysis (`if` clauses)
-- ⌨️ Command history navigation
-- 📂 File dialog integration (Ctrl+O)
+- Load and analyze CSV files
+- Descriptive statistics (`summarize`)
+- Data exploration (`list`)
+- Variable creation and transformation (`gen`)
+- Visualizations: histograms & scatter plots (`graph`)
+- Conditional analysis (`if` clauses)
+- Command history navigation
+- File dialog integration (Ctrl+O)
 
 **User Experience**
 - Stata-compatible command syntax
