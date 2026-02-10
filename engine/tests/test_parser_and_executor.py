@@ -229,16 +229,16 @@ def test_run_graph_too_few_variables(loaded_session):
     """Tests that graph raises SyntaxError for too few variables."""
     with pytest.raises(
         exceptions.SyntaxError,
-        match="r\\(198\\); Graph command requires exactly two variables: graph var1 var2",
+        match="r\\(198\\); Graph command requires 1 or 2 variables: graph var1 \\[var2\\]",
     ):
-        run_graph(loaded_session, ["var1"])
+        run_graph(loaded_session, [])
 
 
 def test_run_graph_too_many_variables(loaded_session):
     """Tests that graph raises SyntaxError for too many variables."""
     with pytest.raises(
         exceptions.SyntaxError,
-        match="r\\(198\\); Graph command requires exactly two variables: graph var1 var2",
+        match="r\\(198\\); Graph command requires 1 or 2 variables: graph var1 \\[var2\\]",
     ):
         run_graph(loaded_session, ["var1", "var2", "var3"])
 

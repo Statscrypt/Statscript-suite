@@ -18,20 +18,20 @@ list
 summarize age salary
 ```
 
-### Example 2: Creating and Analyzing New Variables
+### Example 2: Creating New Variables
 
 ```stata
 # Load data
 use "data.csv"
 
-# Create a new variable based on an existing one
-gen age_years_decade = age
+# Create a copy of an existing variable
+gen age_copy = age
 
 # Get summary for the new variable
-summarize age age_years_decade
+summarize age age_copy
 
 # List both variables
-list age age_years_decade
+list age age_copy
 ```
 
 ### Example 3: Conditional Analysis
@@ -40,7 +40,7 @@ list age age_years_decade
 # Load data
 use "data.csv"
 
-# Summary statistics only for ages > 30
+# Summary statistics only for ages greater than 30
 summarize age if age>30
 
 # Summary for specific variable with condition
@@ -48,6 +48,9 @@ summarize salary if salary>50000
 
 # List all rows matching a condition
 list if age>25
+
+# Supported conditions: >, <
+# (>= and <= are not yet supported)
 ```
 
 ### Example 4: Data Visualization
@@ -56,11 +59,13 @@ list if age>25
 # Load data
 use "data.csv"
 
-# Create a graph of age distribution
+# Create a histogram of age distribution
 graph age
 
-# Create a graph of salary
-graph salary
+# Create a scatter plot of age vs salary
+graph age salary
+
+# Note: graph only works with numeric variables
 ```
 
 ## Command Reference
@@ -95,12 +100,12 @@ list age salary department
 ### Generating Variables
 
 ```stata
-# Copy an existing variable
-gen copy_of_age = age
+# Copy an existing variable (only operation supported)
+gen age_copy = age
+gen income_backup = income
 
-# Create derived variables
-gen salary_half = salary
-gen id_copy = employee_id
+# Note: 'gen' currently only supports copying.
+# Arithmetic operations are not yet supported.
 ```
 
 ### Conditional Analysis
@@ -108,32 +113,34 @@ gen id_copy = employee_id
 #### Supported Conditions
 
 ```stata
-# Equal to
-summarize if age=30
-
 # Greater than
 summarize if salary>50000
+list if age>25
 
 # Less than
-summarize if age<25
+summarize if age<30
+list if salary<100000
 
-# Greater than or equal
-summarize if age>=18
+# Equal to (basic comparison)
+summarize if age=30
 
-# Less than or equal
-summarize if salary<=100000
-
-# Not equal
-summarize if department!=Sales
+# Note: Currently supported operators are: >, <, =
+# Not yet supported: >=, <=, !=
 ```
 
 ### Creating Visualizations
 
 ```stata
-# Create a graph
+# Create a histogram (single numeric variable)
 graph age
-graph salary
-graph department
+graph income
+
+# Create a scatter plot (two numeric variables)
+graph age income
+graph salary age
+
+# Note: Both variables must be numeric
+# Use 'gen' to convert categorical data if needed
 ```
 
 ## Tips and Tricks
@@ -164,7 +171,23 @@ graph department
 - Use comma-separated values
 - Quoted values are supported: `"Some, value"`
 
+## Current Limitations
+
+| Feature | Status | Notes |
+|---------|--------|-------|
+| `gen` arithmetic | ❌ Not supported | Only `gen newvar = oldvar` (copy) works |
+| `if` operators | Partial | Only `>`, `<`, `=` supported. Not: `>=`, `<=`, `!=` |
+| Multiline input | ❌ Not supported | Commands must be entered one line at a time. `///` continuation planned for v0.2.0 |
+| `graph` customization | ❌ Not supported | Histograms (1 var) and scatter plots (2 vars) only |
+| Data export | ❌ Not supported | Coming in v0.2.0 |
+| `.dta` files | ❌ Not supported | Only CSV for now |
+
 ## Common Issues and Solutions
+
+### Issue: "Invalid 'gen' command syntax"
+**Solution:** `gen` only supports copying variables:
+- ✅ `gen age_copy = age` works
+- ❌ `gen new_age = age / 2` fails (arithmetic not supported)
 
 ### Issue: "File not found"
 **Solution:** Check the file path is correct. Use forward slashes `/` in paths.
@@ -175,14 +198,25 @@ graph department
 ### Issue: "Variables not found"
 **Solution:** Make sure variable names are spelled correctly (case-sensitive).
 
+### Issue: Conditional commands fail
+**Solution:** Only `>`, `<`, `=` operators are supported:
+- ✅ `summarize if age>30` works
+- ✅ `list if salary<50000` works
+- ❌ `summarize if age>=30` fails (`>=` not yet supported)
+
+### Issue: Graph window won't open
+**Solution:** Make sure:
+1. Data is loaded with `use "file.csv"`
+2. Variable names are spelled correctly
+3. **Variables are numeric** (text/categorical variables can't be plotted)
+   - `graph age` ✅ works (numeric)
+   - `graph gender` ❌ fails (categorical text)
+
 ### Issue: Commands not working
-**Solution:** 
+**Solution:**
 1. Check F12 console for error messages
 2. Make sure Python engine started (should see "ready" message)
 3. Try restarting the application
-
-### Issue: Graph window won't open
-**Solution:** Make sure data is loaded and valid variable names are used.
 
 ## Sample Data
 
@@ -204,7 +238,7 @@ use "data.csv"
 summarize age
 gen age_copy = age
 list age age_copy
-summarize age age_copy if age>30
+summarize age age_copy if age>25
 ```
 
 ### Exploring Data
@@ -224,8 +258,11 @@ list
 # Check specific columns
 list column1 column2 column3
 
-# Find ranges
+# Find values above a threshold
 summarize if column_name>1000
+
+# Find values below a threshold
+list if salary<50000
 ```
 
 ## Next Steps
@@ -242,4 +279,3 @@ summarize if column_name>1000
 - Press **F12** for developer console
 - Review the Review panel for command history
 - Check error messages in the main output area
-

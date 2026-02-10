@@ -1,254 +1,267 @@
-# Statscrypt Suite - Stata Alternative Built with Python & Electron
+# Statscrypt Suite
 
-A Stata-like statistical analysis tool built with Python backend and Electron frontend. This is a powerful alternative to Stata with a clean, modern interface.
+![Python](https://img.shields.io/badge/Python-3.9+-3776ab?logo=python&logoColor=white)
+![Electron](https://img.shields.io/badge/Electron-28.0.0-47848f?logo=electron&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-green)
+![Status](https://img.shields.io/badge/Status-Active-brightgreen)
+![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-blue)
+
+> **A free, open-source statistical analysis suite for students learning Stata.** Statscrypt provides a Stata-compatible learning environment for students who don't yet have access to commercial statistical software, enabling them to practice data analysis workflows and complete assignments before formally using Stata.
+
+## Overview
+
+Statscrypt is an **educational statistics platform** designed to bridge the gap between aspiring data analysts and professional statistical software. Built with Python and Electron, it offers a Stata-like command interface with modern UI/UX, making it ideal for:
+
+- 📚 **Students** learning statistical methods and data analysis
+- 🎓 **Teaching** fundamental statistics concepts
+- 📊 **Practice** before using commercial software
+- 🔬 **Research prototyping** with open-source tools
 
 ## Quick Start
 
 ### All Platforms (Windows, macOS, Linux)
 
-**Option 1: Auto-Bootstrap (Easiest)**
+**Easiest Option: Run the Launcher**
 
-Double-click the appropriate file:
-- **Windows:** `gui/start.cmd` ← Recommended
-- **macOS/Linux:** `gui/start` (make it executable first)
+- **Windows:** Double-click `gui/start.cmd`
+- **macOS/Linux:** Run `gui/start` in terminal
 
-These will automatically install `just` if needed, then start the app.
+Both auto-install dependencies and start the app.
 
-**Option 2: Using Just (If already installed)**
+**Alternative: Using Just**
 
 ```bash
 cd gui
 just start
 ```
 
-**Option 3: Manual (No Just required)**
+## Features
 
-```bash
-cd gui
-npm install      # First time only
-npm start
-```
+**Core Functionality**
+- 📁 Load and analyze CSV files
+- 📊 Descriptive statistics (`summarize`)
+- 📋 Data exploration (`list`)
+- 🔢 Variable creation and transformation (`gen`)
+- 📈 Visualizations: histograms & scatter plots (`graph`)
+- 🔍 Conditional analysis (`if` clauses)
+- ⌨️ Command history navigation
+- 📂 File dialog integration (Ctrl+O)
 
-## What's New (Fixed)
+**User Experience**
+- Stata-compatible command syntax
+- Modern desktop interface
+- Cross-platform support (Windows, macOS, Linux)
+- Real-time error feedback
+- Developer console (F12)
 
- **CRITICAL FIX:** Commands now actually execute (was broken due to JSON communication bug)  
- **Better UI:** Redesigned interface with proper layout  
- **File Dialog:** Ctrl+O to open files instead of typing paths  
- **Command History:** Arrow Up/Down to navigate  
- **Error Logging:** F12 to see debug info  
- **Cross-Platform:** Justfile for Windows, macOS, and Linux with unified commands
- **Easy Installation:** Run `start.cmd` or `start` script (auto-installs just)  
- **Help Menu:** Built-in command reference  
-
-##  Basic Usage
-
-After launching:
+## Usage Examples
 
 ```stata
-# Load a CSV file
-use "path/to/data.csv"
+# Load CSV data
+use "sales_data.csv"
 
-# See summary statistics
+# Explore the dataset
 summarize
-
-# View data
 list
 
-# Create new variable
-gen new_var = old_var
+# Create new variables
+gen profit = revenue - cost
 
-# Analyze with conditions
-summarize salary if age>30
+# Descriptive analysis
+summarize revenue if year > 2020
 
-# Create graphs
-graph age
+# Visualizations
+graph revenue              # Histogram of revenue
+graph revenue profit       # Scatter plot: revenue vs profit
 ```
 
 ## Keyboard Shortcuts
 
 | Shortcut | Action |
 |----------|--------|
-| `Ctrl+O` / `Cmd+O` | Open file dialog |
-| `Arrow Up/Down` | Navigate command history |
-| `F12` | Open developer tools / Console |
-| `Ctrl+Q` / `Cmd+Q` | Quit application |
+| `Ctrl+O` / `Cmd+O` | Open file browser |
+| `↑ / ↓` | Navigate command history |
 | `Enter` | Execute command |
+| `F12` | Developer console |
+| `Ctrl+Q` / `Cmd+Q` | Quit |
 
-## Available Commands (via Just)
+## What's New (Fixed)
+
+ **CRITICAL FIX:** Commands now actually execute (was broken due to JSON communication bug)
+ **Better UI:** Redesigned interface with proper layout
+ **File Dialog:** Ctrl+O to open files instead of typing paths
+ **Command History:** Arrow Up/Down to navigate
+ **Error Logging:** F12 to see debug info
+ **Cross-Platform:** Justfile for Windows, macOS, and Linux with unified commands
+ **Easy Installation:** Run `start.cmd` or `start` script (auto-installs just)
+ **Graphs:** Single-variable histograms and two-variable scatter plots
+
+## Installation
+
+### Requirements
+- **Node.js** 14+ (Electron runtime)
+- **Python** 3.9+ (statistical backend)
+
+Both are auto-detected by the launcher scripts.
+
+### From Source
 
 ```bash
-just start           # Start the application (default)
-just dev             # Start in development mode
-just install         # Install npm dependencies
-just build-engine    # Build Python backend
-just build           # Build for distribution
+# Clone the repository
+git clone https://github.com/Statscrypt/Statscript-suite.git
+cd statscrypt-suite
 
+# Run the application
+cd gui
+./start              # macOS/Linux
+# or
+start.cmd           # Windows
 ```
-
-
-## Project Structure
-
-```
-statscrypt-suite/
-├── engine/              # Python backend
-│   ├── src/
-│   │   └── statscrypt/
-│   │       ├── cli.py
-│   │       ├── repl.py
-│   │       ├── core/
-│   │       └── commands/
-│   └── pyproject.toml
-├── gui/                 # Electron frontend
-│   ├── src/
-│   │   ├── main.js      
-│   │   ├── renderer.js  
-│   │   └── index.html   
-│   ├── start.bat       
-│   └── start.sh         
-├── shared/
-│   └── sample.csv       # Sample data for testing
-└── docs/
-```
-
 
 ## Documentation
 
-- **[JUSTFILE_GUIDE.md](JUSTFILE_GUIDE.md)** - How to use Just (recommended!)
-- **[STARTUP_GUIDE.md](gui/STARTUP_GUIDE.md)** - Setup guide
-- **[USAGE_GUIDE.md](USAGE_GUIDE.md)** - Commands and examples
-- **[MIGRATION_TO_JUSTFILE.md](MIGRATION_TO_JUSTFILE.md)** - Why we use Just
-
-## Features
-
-### Current
-- Load CSV files
-- Summary statistics (`summarize`)
-- View data (`list`)
-- Generate variables (`gen`)
-- Conditional analysis (`if` clauses)
-- Graphs (`graph`)
-- File dialog
-- Command history
-- Professional UI
-
-### Planned
-- Support for .dta (Stata) files
-- More statistical commands
-- Data export/save
-- Session management
-- Command autocomplete
-- Plugin system
+- [Startup Guide](gui/STARTUP_GUIDE.md) – Setup troubleshooting
+- [Usage Guide](USAGE_GUIDE.md) – Complete command reference
 
 ## Technical Stack
 
-- **Backend:** Python 3.9+ with pandas, numpy, matplotlib
-- **Frontend:** Electron + HTML/CSS/JavaScript
-- **Communication:** JSON over stdio
-- **Packaging:** PyInstaller (Python) + Electron-builder (App)
-
-## Requirements
-
-### To Run
-- Node.js 14+ (for Electron)
-- Python 3.9+ (if building from source)
-
-If you just use `start.bat`/`start.sh`, these will be auto-detected.
-
-### To Build Production Version
-```bash
-npm run build
-```
-
-This creates a standalone executable in the `dist/` folder.
+| Layer | Technology |
+|-------|-----------|
+| **Backend** | Python 3.9+ (pandas, numpy, statsmodels, matplotlib) |
+| **Frontend** | Electron 28.0.0 + HTML5/CSS/JavaScript |
+| **Communication** | JSON over stdio |
+| **Packaging** | PyInstaller (CLI) + Electron-builder (GUI) |
 
 ## Development
 
 ### Setup
+
 ```bash
 cd gui
 npm install
+cd ../engine
+pip install -e .[dev]
 ```
 
-### Run in Development
+### Run Development Build
+
 ```bash
+cd gui
 npm start
 ```
 
-### Build Python Engine
+### Build for Distribution
+
 ```bash
-pip install -e .[dev]
-pyinstaller statscrypt.spec --distpath ../gui/resources/engine
+cd gui
+just build          # Builds both engine and GUI
+# Output in: gui/dist/
 ```
 
 ## Contributing
 
-Feel free to:
-- Report bugs
-- Suggest features
-- Submit pull requests
-- Improve documentation
+We welcome contributions from students, educators, and developers! Whether it's bug fixes, new statistical commands, or documentation improvements, your help makes Statscrypt better.
 
-## Example Workflow
+### Getting Started
 
-```stata
-# 1. Load data
-use "sales_data.csv"
+1. **Fork** the repository on [GitHub](https://github.com/Faadabu/statscrypt-suite)
+2. **Clone** your fork locally
+   ```bash
+   git clone https://github.com/YOUR-USERNAME/statscrypt-suite.git
+   cd statscrypt-suite
+   ```
+3. **Create** a feature branch
+   ```bash
+   git checkout -b feature/short-description
+   ```
+4. **Make** your changes
+5. **Test** locally with `just start` or `npm start`
+6. **Commit** with a clear message
+   ```bash
+   git commit -m "feat: add new statistical command"
+   ```
+7. **Push** to your fork and open a [Pull Request](https://github.com/Faadabu/statscrypt-suite/pulls)
 
-# 2. Explore
-summarize
-list
+### Contribution Types
 
-# 3. Analyze
-summarize revenue if year>2020
-summarize salary if department=Engineering
+** Add Statistical Commands**
+- Implement new Stata-compatible commands in `engine/src/statscrypt/commands/`
+- Update tests and documentation
 
-# 4. Transform
-gen revenue_millions = revenue
+** Bug Fixes**
+- Fork, fix, test, and submit PR with clear description
 
-# 5. Visualize
-graph revenue
-graph salary
+** Documentation**
+- Improve guides, examples, or API documentation
+- Fix typos and clarify instructions
+
+** UI/UX Improvements**
+- Enhance electron frontend in `gui/src/`
+- Better error messages, accessibility features
+
+### Code Standards
+
+- **Python:** Black formatting, isort imports, Pylint checks
+- **JavaScript:** ESLint (via pre-commit hooks)
+- **Commits:** Use semantic versioning (`feat:`, `fix:`, `chore:`, `docs:`)
+
+Run pre-commit hooks before pushing:
+```bash
+pre-commit run --all-files
 ```
 
-## Known Limitations
+### Questions?
 
-- Only CSV format currently (Stata .dta support coming)
-- Limited to single CSV loading
-- Graph functionality depends on matplotlib
-- Some Stata commands not yet implemented
+- Check existing [Issues](https://github.com/Faadabu/statscrypt-suite/issues)
+- Discuss in [Discussions](https://github.com/Faadabu/statscrypt-suite/discussions)
+- Email or message on GitHub
 
-## Learning Stata Syntax?
+---
 
-The command syntax is compatible with Stata:
+## Roadmap
 
-```stata
-command [varlist] [if condition] [in range]
-```
+**v0.2.0 (Coming Soon)**
+- [ ] Support Stata `.dta` file format
+- [ ] Additional statistical tests (t-test, chi-square, ANOVA)
+- [ ] Data export (CSV, Excel)
+- [ ] Command autocomplete
 
-Examples:
-```stata
-summarize age income
-list if age>30
-gen new_var = old_var
-```
+**v0.3.0 (Future)**
+- [ ] Session persistence
+- [ ] Plugin system
+- [ ] Custom chart types
+- [ ] Performance optimizations
 
-## Support
+## Limitations & Future Work
 
-If something doesn't work:
-
-1. **Check the Console** (F12 → Console tab)
-2. **Try** restarting the application
+- **File Format:** Currently supports CSV only (`.dta` support in v0.2.0)
+- **Single Dataset:** One CSV file at a time
+- **Command Set:** Subset of Stata commands (expanding with each release)
+- **Performance:** Optimized for datasets < 1GB
 
 ## License
 
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+**MIT License** – Free to use for any purpose (commercial, educational, personal).
 
-You are free to:
-- ✅ Use this software for any purpose
-- ✅ Modify and distribute it
-- ✅ Use it in commercial projects
-- ✅ Sublicense it
+See [LICENSE](LICENSE) for full details.
 
-The only requirement is to include the license notice.
+### You are free to:
+ Use in educational settings
+ Modify and redistribute
+ Use commercially
+ Include in proprietary projects
 
-**Last Updated:** 2026-02-08
+The only requirement: include the original license notice.
+
+---
+
+## About
+
+**Author & Lead Maintainer:** [Faad Abubakar](https://github.com/Faadabu)
+
+Statscrypt was created to democratize access to statistical analysis tools for students worldwide. Your contributions help us achieve that mission.
+
+**Repository:** https://github.com/Statscrypt/Statscript-suite
+---
+
+**Made with ❤️ for students learning statistics.**
