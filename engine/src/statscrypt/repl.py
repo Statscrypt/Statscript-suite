@@ -2,12 +2,21 @@ import json
 import sys
 
 import statscrypt.core.exceptions as exceptions
-from statscrypt.commands.data_mgmt import run_gen, run_list, run_use
+from statscrypt.commands.data_mgmt import (
+    run_count,
+    run_drop,
+    run_gen,
+    run_keep,
+    run_list,
+    run_save,
+    run_use,
+)
 from statscrypt.commands.stats import (
     run_correlate,
     run_regress,
     run_summarize,
     run_tabulate,
+    run_ttest,
 )
 from statscrypt.commands.viz import run_graph
 from statscrypt.core.parser import StatParser
@@ -25,6 +34,11 @@ COMMAND_MAP = {
     "corr": run_correlate,
     "tabulate": run_tabulate,
     "tab": run_tabulate,
+    "drop": run_drop,
+    "keep": run_keep,
+    "save": run_save,
+    "count": run_count,
+    "ttest": run_ttest,
 }
 
 
