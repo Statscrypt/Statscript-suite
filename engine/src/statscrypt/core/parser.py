@@ -21,30 +21,62 @@ class StatParser:
             if (
                 len(tokens) >= 4
                 and tokens[1].type == "VAR"
-                and tokens[2].value == "="
-                and tokens[3].type == "VAR"
+                and tokens[2].value in ["=", "=="]
             ):
+                # Find where the expression starts (after =)
+                expr_start = 3
+                expr_end = if_index if if_index else len(tokens)
+
+                # Extract expression tokens
+                expr_tokens = tokens[expr_start:expr_end]
+                expression = " ".join([t.value for t in expr_tokens])
+
                 result["gen_expression"] = {
                     "new_var": tokens[1].value,
-                    "operator": tokens[2].value,
-                    "old_var": tokens[3].value,
+                    "expression": expression,
                 }
                 result["variables"] = []
+
+                # Handle if condition for gen
+                if if_index:
+                    result["condition"] = self._parse_condition(tokens[if_index + 1 :])
             else:
                 raise exceptions.SyntaxError(
-                    "Invalid 'gen' command syntax. Expected 'gen newvar = oldvar'."
+                    "Invalid 'gen' command syntax. Expected 'gen newvar = expression'."
                 )
         else:
             if if_index:
                 result["variables"] = [t.value for t in tokens[1:if_index]]
-
-                result["condition"] = " ".join(
-                    [t.value for t in tokens[if_index + 1 :]]
-                )
+                result["condition"] = self._parse_condition(tokens[if_index + 1 :])
             else:
                 result["variables"] = [t.value for t in tokens[1:]]
 
         return result
+
+    def _parse_condition(self, tokens: List[Token]) -> str:
+        """Parse condition tokens into pandas query string."""
+        condition_parts = []
+        i = 0
+
+        while i < len(tokens):
+            token = tokens[i]
+
+            if token.type == "VAR":
+                condition_parts.append(f"{token.value}")
+            elif token.type == "COMP_OP":
+                # Convert = to ==
+                op = token.value if token.value != "=" else "=="
+                condition_parts.append(op)
+            elif token.type == "LOGIC_OP":
+                condition_parts.append(token.value)
+            elif token.type == "NUMBER":
+                condition_parts.append(token.value)
+            elif token.type == "STRING":
+                condition_parts.append(token.value)
+
+            i += 1
+
+        return " ".join(condition_parts)
 
 
 class Executor:
