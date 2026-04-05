@@ -1,9 +1,11 @@
-import pandas as pd
 from typing import Optional
+
+import pandas as pd
+
 
 class StatSession:
     """Manages the current state of the statscrypt environment."""
-    
+
     def __init__(self):
         self.df: Optional[pd.DataFrame] = None
         self.variables: list[str] = []

@@ -13,14 +13,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.key === 'Enter') {
             const command = commandInput.value.trim();
             console.log(`[RENDERER] Enter pressed with command: "${command}"`);
-            
+
             if (command) {
                 console.log(`[RENDERER] Sending command to main process...`);
                 ipcRenderer.send('run-command', command);
-                
+
                 commandHistory.push(command);
-                historyIndex = -1; 
-                
+                historyIndex = -1;
+
                 const historyEntry = document.createElement('div');
                 historyEntry.className = 'command-entry';
                 historyEntry.textContent = '> ' + command;
@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-  
+
     ipcRenderer.on('stata-output', (event, data) => {
         resultsOutput.textContent += data;
         resultsOutput.scrollTop = resultsOutput.scrollHeight;
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     ipcRenderer.on('variable-update', (event, variables) => {
         const varList = document.getElementById('var-list');
-        varList.innerHTML = ''; 
+        varList.innerHTML = '';
         if (Array.isArray(variables)) {
             variables.forEach(variable => {
                 const li = document.createElement('li');

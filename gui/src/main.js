@@ -23,7 +23,7 @@ function createGraphWindow() {
     }
   });
 
-  graphWindow.loadFile(path.join(__dirname, 'graph.html')); // Create a new HTML for graph window
+  graphWindow.loadFile(path.join(__dirname, 'graph.html'));
 
   graphWindow.on('closed', () => {
     graphWindow = null;
@@ -51,7 +51,7 @@ function createWindow() {
     ? path.join(process.resourcesPath, 'engine', 'statscrypt_engine', 'statscrypt_engine')
     : path.join(__dirname, '..', 'resources', 'engine', 'statscrypt_engine', 'statscrypt_engine.exe');
 
-  const scriptArgs = ['--json']; // Both packaged and dev modes use the built executable which only needs --json
+  const scriptArgs = ['--json'];
 
   console.log(`[DEBUG] Python executable path: ${pythonExecutable}`);
   console.log(`[DEBUG] Starting statscrypt engine...`);
@@ -127,7 +127,7 @@ function createMenu() {
                 { name: 'All Files', extensions: ['*'] }
               ]
             });
-            
+
             if (!result.canceled && result.filePaths.length > 0) {
               const filePath = result.filePaths[0];
               // Send use command to Python engine

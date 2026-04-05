@@ -48,10 +48,10 @@ repos:
         name: Lint JavaScript with ESLint
         types: [javascript]
         args: [--fix]
-        additional_dependencies: ['eslint']
+        additional_dependencies: ['eslint@8']
 
 default_language_version:
   python: python3.10
-  node: 16.0.0
+  node: 20.0.0
 
 exclude: ^(gui/node_modules/|engine/build/|engine/dist/|\.git/|\.venv/|venv/)

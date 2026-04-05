@@ -16,10 +16,10 @@ for /f "delims=" %%i in ('where just 2^>nul') do set "JUST_PATH=%%i"
 if not defined JUST_PATH (
     echo [*] 'just' task runner not found. Installing...
     echo.
-    
+
     REM Try to install just using cargo
     for /f "delims=" %%i in ('where cargo 2^>nul') do set "CARGO_PATH=%%i"
-    
+
     if defined CARGO_PATH (
         echo Installing just via cargo...
         cargo install just
@@ -31,7 +31,7 @@ if not defined JUST_PATH (
         REM Try downloading prebuilt binary
         echo Installing just from GitHub...
         echo Downloading installer...
-        
+
         powershell -Command "^
             try {^
                 $arch = if ([Environment]::Is64BitProcess) { 'x86_64' } else { 'i686' };^
@@ -59,7 +59,7 @@ if not defined JUST_PATH (
             exit /b 1
         )
     )
-    
+
     echo [OK] just installed successfully
     echo.
 )

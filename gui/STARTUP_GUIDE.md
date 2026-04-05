@@ -28,18 +28,18 @@ These scripts will automatically:
 If you have `just` installed, open terminal in `gui` folder:
 
 ```bash
-just start        
-just build   
-just clean         
-just help        
+just start
+just build
+just clean
+just help
 ```
 
 ### Manual Method (No Task Runner Needed)
 
 ```bash
 cd gui
-npm install      
-npm start      
+npm install
+npm start
 ```
 
 ## Basic Commands

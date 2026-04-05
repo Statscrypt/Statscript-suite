@@ -14,9 +14,9 @@ echo ""
 if ! command -v just &> /dev/null; then
     echo "[*] 'just' task runner not found. Installing..."
     echo ""
-    
+
     OS=$(uname -s)
-    
+
     case "$OS" in
         Linux*)
             echo "Installing just for Linux..."
@@ -42,13 +42,13 @@ if ! command -v just &> /dev/null; then
             exit 1
             ;;
     esac
-    
+
     if ! command -v just &> /dev/null; then
         echo "[!] Installation may have failed. Please install 'just' manually:"
         echo "    https://github.com/casey/just#installation"
         exit 1
     fi
-    
+
     echo "[OK] just installed successfully"
     echo ""
 fi
